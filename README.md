@@ -125,7 +125,7 @@ module "overlays-subscription" {
 }
 ```
 
-## Creating a new Alias and Subscription for an Enrollment Account with a new Microsoft Customer Account
+## Creating a new Alias and Subscription with a new Microsoft Customer Account
 
 ```terraform
 module "overlays-subscription" {
@@ -146,7 +146,7 @@ module "overlays-subscription" {
 }
 ```
 
-## Creating a new Alias and Subscription for an Enrollment Account with a new Microsoft Partner Account
+## Creating a new Alias and Subscription with a new Microsoft Partner Account
 
 ```terraform
 module "overlays-subscription" {
