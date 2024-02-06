@@ -68,6 +68,18 @@ If you want to contribute to this repository, feel free to to contribute to our 
 
 More details are available in the [CONTRIBUTING.md](./CONTRIBUTING.md#pull-request-process) file.
 
+## Limitations
+
+- Destroying a Subscription controlled by this resource will place the Subscription into a cancelled state. It is possible to re-activate a subscription within 90-days of cancellation, after which time the Subscription is irrevocably deleted, and the Subscription ID cannot be re-used. For further information see [here](https://docs.microsoft.com/azure/cost-management-billing/manage/cancel-azure-subscription#what-happens-after-subscription-cancellation). Users can optionally delete a Subscription once 72 hours have passed, however, this functionality is not suitable for Terraform. A `Deleted` subscription cannot be reactivated.
+
+- It is not possible to destroy (cancel) a subscription if it contains resources. If resources are present that are not managed by Terraform then these will need to be removed before the Subscription can be destroyed.
+
+- This resource will automatically attempt to cancel a subscription when it is deleted. This behavior can be disabled in the provider features block by setting the `prevent_cancellation_on_destroy` field to `true` within the `subscription` block.
+
+- Azure supports Multiple Aliases per Subscription, however, to reliably manage this resource in Terraform only a single Alias is supported.
+
+- When using this resource across tenants the `client_id` and `tenant_id` of the provider config block should be for the home tenant details for the SPN / User or a permissions error will likely be encountered. See the [official documentation](https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/programmatically-create-subscription) for more details.
+
 ## Default Module Usage
 
 The following example demonstrates how to use this module to create a new Alias for an existing Subscription.
@@ -124,12 +136,32 @@ module "overlays-subscription" {
     environment = "public"
 
     # Subscription Variables
-    create_msa_subscription = true
+    create_mca_subscription = true
     subscription_name       = "My Subscription"
     alias                   = "DevTest"
     billing_account_name    = "My Billing Account"
     billing_profile_name    = "My Billing Profile"
     invoice_section_name    = "My Invoice Section"
+    workload_name           = "Development"   
+}
+```
+
+## Creating a new Alias and Subscription for an Enrollment Account with a new Microsoft Partner Account
+
+```terraform
+module "overlays-subscription" {
+  source  = "azurenoops/overlays-subscription/azurerm"
+  version = "x.x.x"
+   
+    # Global Variables
+    environment = "public"
+
+    # Subscription Variables
+    create_mpa_subscription = true
+    subscription_name       = "My Subscription"
+    alias                   = "DevTest"
+    billing_account_name    = "My Billing Account"
+    customer_name           = "My Customer Name"
     workload_name           = "Development"   
 }
 ```
