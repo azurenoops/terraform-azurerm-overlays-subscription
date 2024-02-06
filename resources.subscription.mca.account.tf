@@ -2,10 +2,10 @@
 # Licensed under the MIT License.
 
 #---------------------------------------------------------------
-# Create a subscription within an Enterprise Agreement enrollment
+# Create a subscription within an Microsoft Customer Account
 #---------------------------------------------------------------
 
-resource "azurerm_subscription" "enrollment_sub" {
+resource "azurerm_subscription" "mca_sub" {
   count             = var.create_mca_subscription ? 1 : 0
   subscription_name = var.subscription_name
   alias             = var.alias == null ? uuid() : var.alias
