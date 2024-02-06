@@ -20,3 +20,8 @@ output "mca_sub_id" {
   value       = var.create_mca_subscription ? azurerm_subscription.mca_sub.id : null
   description = "The ID of the subscription within an Microsoft Customer Account"
 }
+
+output "mpa_sub_id" {
+  value       = var.create_mpa_subscription ? azurerm_subscription.mpa_sub.id : null
+  description = "The ID of the subscription within an Microsoft PArtner Account"
+}
