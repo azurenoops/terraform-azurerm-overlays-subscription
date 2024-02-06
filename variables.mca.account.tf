@@ -6,7 +6,7 @@
 # MCA Configuration   ##
 ########################
 
-variable "create_msa_subscription" {
+variable "create_mca_subscription" {
   description = "Create a subscription within an Microsoft Customer Account."
   type        = bool
   default     = false  

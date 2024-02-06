@@ -6,10 +6,10 @@
 #---------------------------------------------------------------
 
 resource "azurerm_subscription" "enrollment_sub" {
-  count             = var.create_msa_subscription ? 1 : 0
+  count             = var.create_mca_subscription ? 1 : 0
   subscription_name = var.subscription_name
   alias             = var.alias == null ? uuid() : var.alias
-  billing_scope_id  = data.azurerm_billing_enrollment_account_scope.msa.0.id
+  billing_scope_id  = data.azurerm_billing_enrollment_account_scope.mca.0.id
   workload          = var.workload_name == null ? "Production" : var.workload_name
 
   # Tags

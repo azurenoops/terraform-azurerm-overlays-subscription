@@ -7,8 +7,8 @@ data "azurerm_billing_enrollment_account_scope" "enrollment" {
   enrollment_account_name = var.enrollment_account_name
 }
 
-data "azurerm_billing_mca_account_scope" "msa" {
-  count                = var.create_msa_subscription ? 1 : 0
+data "azurerm_billing_mca_account_scope" "mca" {
+  count                = var.create_mca_subscription ? 1 : 0
   billing_account_name = var.billing_account_name
   billing_profile_name = var.billing_profile_name
   invoice_section_name = var.invoice_section_name
